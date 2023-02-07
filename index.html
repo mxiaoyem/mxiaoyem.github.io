@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-synchronized相关知识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/synchronized%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T08:12:30.932Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="synchronized相关知识"><a href="#synchronized相关知识" class="headerlink" title="synchronized相关知识"></a>synchronized相关知识</h1><p>[TOC]</p>
+<h2 id="一、synchronized用法"><a href="#一、synchronized用法" class="headerlink" title="一、synchronized用法"></a>一、synchronized用法</h2><h3 id="1、代码块"><a href="#1、代码块" class="headerlink" title="1、代码块"></a>1、代码块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">synchronized(对象)&#123;</span><br><span class="line">    //临界区</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、普通方法上"><a href="#2、普通方法上" class="headerlink" title="2、普通方法上"></a>2、普通方法上</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public synchronized void test()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价于</span><br><span class="line"></span><br><span class="line">public void test() &#123;</span><br><span class="line">    synchronized (this) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、静态方法-其实锁住的是这个类对象"><a href="#3、静态方法-其实锁住的是这个类对象" class="headerlink" title="3、静态方法(其实锁住的是这个类对象)"></a>3、静态方法(其实锁住的是这个类对象)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public synchronized static void test() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价于</span><br><span class="line"></span><br><span class="line">class Test &#123;</span><br><span class="line">    public static void test() &#123;</span><br><span class="line">        synchronized (Test.class) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、synchronized-锁升级"><a href="#二、synchronized-锁升级" class="headerlink" title="二、synchronized 锁升级"></a>二、synchronized 锁升级</h2><p>无锁–&gt;偏向锁–&gt;轻量级锁（线程栈中锁记录）–&gt;重量级锁</p>
+<h3 id="1-、偏向锁："><a href="#1-、偏向锁：" class="headerlink" title="(1)、偏向锁："></a>(1)、偏向锁：</h3><p>轻量级锁在没有竞争时（就自己这个线程），每次重入仍然需要执行CAS操作</p>
+<p>java6中引入了偏向锁来做进一步优化，只有第一次使用CAS将线程的ID设置到对象的mark Word头，之后发现这个线程ID是自己的就表示没有竞争，不用重新CAS，以后只要不发生竞争，这个对象就是归该线程所有</p>
+<h4 id="1-、撤销偏向锁："><a href="#1-、撤销偏向锁：" class="headerlink" title="1)、撤销偏向锁："></a>1)、撤销偏向锁：</h4><ol>
+<li><p>调用了hashCode（31位）之后就会禁用偏向锁。因为Mark Word 头（对象头）放不下线程ID（54位）了、对象头一共64位</p>
+<ul>
+<li><p>为什么轻量级和重量级锁调用hashCode不会禁用相关锁？</p>
+<p>因为轻量级锁的hashCode是存在线程栈的锁记录里。重量级锁是存在monitor对象里，在解锁的时候还会还原回去</p>
+</li>
+</ul>
+</li>
+<li><p>当其他线程也使用偏向锁对象时，会将偏向锁升级为轻量级锁</p>
+</li>
+<li><p>调用 wait&#x2F;notify。因为这个两个方法是重量级锁的</p>
+</li>
+</ol>
+<h4 id="2-、批量重偏向（超过阈值后）："><a href="#2-、批量重偏向（超过阈值后）：" class="headerlink" title="2)、批量重偏向（超过阈值后）："></a>2)、批量重偏向（超过阈值后）：</h4><p>如果对象虽然被多个线程访问，但没有竞争，这时偏向了线程T1的对象仍有机会重新偏向T2，重偏向会重置对象的ThredID</p>
+<p>当撤销偏向锁阈值超过20次后，JVM会这样觉得，我是不是偏向错了呢，于是会在给这些对象加锁时重新偏向至加锁线程</p>
+<h4 id="3-、批量撤销："><a href="#3-、批量撤销：" class="headerlink" title="3)、批量撤销："></a>3)、批量撤销：</h4><p>当撤销偏向锁阈值超过40次后，JVM会这样觉得，自己确实偏向错了，根本就不会该偏向。于是整个类的所有对象都会变为不可偏向的，新建的对象也是不可偏向的</p>
+<h3 id="2-、轻量级锁："><a href="#2-、轻量级锁：" class="headerlink" title="(2)、轻量级锁："></a>(2)、轻量级锁：</h3><p>​	轻量级锁的使用场景：如果一个对象虽然有多个线程访问，但多个线程访问的时间是错开的（也就是没有竞争），那么可以使用轻量级锁来优化。</p>
+<p>创建锁记录（Lock Record）对象，每个线程的栈帧都会包含一个锁记录的结构，内部可以存储锁定对象的Mark Word</p>
+<h4 id="1-、锁重入："><a href="#1-、锁重入：" class="headerlink" title="1)、锁重入："></a>1)、锁重入：</h4><p>是同一个线程对同一个对象多次加锁，就是锁重入</p>
+<h4 id="2-、锁膨胀："><a href="#2-、锁膨胀：" class="headerlink" title="2)、锁膨胀："></a>2)、锁膨胀：</h4><p>如果在尝试加轻量级锁的过程中，CAS操作无法成功，这时一种情况就是有其它线程为此对象加上了轻量级锁（有竞争），这时需要进行锁膨胀，将轻量级锁变为重量级锁</p>
+<h4 id="3-、自旋优化（多核cpu还有意义）："><a href="#3-、自旋优化（多核cpu还有意义）：" class="headerlink" title="3)、自旋优化（多核cpu还有意义）："></a>3)、自旋优化（多核cpu还有意义）：</h4><p>重量级锁竞争的时候，还可以使用自旋来进行优化，如果当前线程自旋成功（即这时候持锁线程已经退出了同步块，释放了锁），这时当前线程就可以避免阻塞（线程的上下文切换，耗时）</p>
+<ol>
+<li><p>在java6之后自旋锁是自适应的，比如对象刚刚的一次自旋操作成功过，那么认为这次的自旋成功的可能性会高，就多自旋几次，反之，就少自旋甚至不自旋，总之，比较智能。</p>
+</li>
+<li><p>自旋会占用CPU时间，单核CPU自旋就是浪费，多核CPU自旋才能发挥优势。</p>
+</li>
+<li><p>java7之后不能控制是否开启自旋功能</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/synchronized%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" data-id="cldtyyzhx00009wusc1fn7ezh" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/02/07/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2023-02-07T06:49:39.357Z" itemprop="datePublished">2023-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/02/07/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/02/07/hello-world/" data-id="cldtxtujr00003wus09ti1d0k" data-title="Hello World" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/07/synchronized%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/07/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
